@@ -19,13 +19,17 @@ public class WebSocketController {
     @Autowired
     private ChatService chatService;
 
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
-    @MessageMapping("/send/{chatroomSeq}/{userId}")
-    @SendTo("/sub/chatroom/{chatroomSeq}/{userId}")
-    public ChatMessageDto sendMessage(@DestinationVariable String chatroomSeq,@DestinationVariable String userId, @Payload ChatMessageDto message) {
-
-        return message;
-    }
+//    // 메시지를 특정 채팅방으로 전송하고, 같은 채팅방을 구독하는 클라이언트에게 메시지를 전달합니다.
+//    @MessageMapping("/pub/message/{chatroomSeq}")
+//    @SendTo("/sub/chatroom/{chatroomSeq}")
+//    public ChatMessageDto sendMessage(@DestinationVariable String chatroomSeq, @Payload ChatMessageDto message) {
+//        System.out.println("받아오는 메세지 : "+message);
+//        chatService.saveMessage(chatroomSeq, message);
+//        return message;
+//    }
 
 
     @MessageMapping("/message")
@@ -39,6 +43,4 @@ public class WebSocketController {
     public List<ChatMessageDto> getMessages(@PathVariable String chatroomSeq) {
         return chatService.getMessages(chatroomSeq);
     }
-
-
 }
