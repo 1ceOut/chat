@@ -13,7 +13,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws") // /ws로 오는 것을 STOMP 로 인식
-                .setAllowedOrigins("https://api.icebuckwheat.kro.kr")
+                //.setAllowedOrigins("https://api.icebuckwheat.kro.kr")
+                .setAllowedOrigins("*")
                 .withSockJS();
     }
 
