@@ -19,13 +19,15 @@ public class ChatService {
 
     public ChatMessageDto saveMessage(ChatMessageDto messageDto) {
         return new ChatMessageDto(
-                messageDto.getId(),
                 messageDto.getSender(),
                 messageDto.getMessage(),
                 messageDto.getChatroomSeq(),
-                messageDto.getSenderSeq()
+                messageDto.getSenderSeq(),
+                messageDto.getTimestamp(),
+                messageDto.getUserProfile()
         );
     }
+
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
