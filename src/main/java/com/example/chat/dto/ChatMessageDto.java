@@ -16,6 +16,8 @@ public class ChatMessageDto {
     private String chatroomSeq; // 채팅방 식별자
     private Long senderSeq;
     private String timestamp;
+    private String datestamp;
     private String userProfile;
+
 
 }
