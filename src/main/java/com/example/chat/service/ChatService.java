@@ -24,6 +24,7 @@ public class ChatService {
                 messageDto.getChatroomSeq(),
                 messageDto.getSenderSeq(),
                 messageDto.getTimestamp(),
+                messageDto.getDatestamp(),
                 messageDto.getUserProfile()
         );
     }
@@ -65,6 +66,11 @@ public class ChatService {
                 })
                 .filter(messageDto -> messageDto != null)
                 .collect(Collectors.toList());
+    }
+    
+    @GetMapping("/api/chatroom/{chatroomSeq}/last-message")
+    public ChatMessageDto getLastMessage(@PathVariable String chatroomSeq) {
+        return chatService.getLastMessage(chatroomSeq);
     }
 
 }
