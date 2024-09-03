@@ -67,10 +67,24 @@ public class ChatService {
                 .filter(messageDto -> messageDto != null)
                 .collect(Collectors.toList());
     }
-    
-    @GetMapping("/api/chatroom/{chatroomSeq}/last-message")
-    public ChatMessageDto getLastMessage(@PathVariable String chatroomSeq) {
-        return chatService.getLastMessage(chatroomSeq);
+
+    // 채팅방의 마지막 메시지를 불러오는 메소드
+    public ChatMessageDto getLastMessage(String chatroomSeq) {
+        String key = CHAT_ROOM_PREFIX + chatroomSeq;
+        String lastMessageJson = redisTemplate.opsForList().index(key, -1);
+        System.out.println("last!!!!!"+lastMessageJson);
+
+        if (lastMessageJson == null) {
+            return null;
+        }
+
+        try {
+
+            return objectMapper.readValue(lastMessageJson, ChatMessageDto.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }
