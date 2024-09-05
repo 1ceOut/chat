@@ -20,3 +20,4 @@ public class ChatMessageDto {
     private String userProfile;
 
 }
+
