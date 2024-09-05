@@ -53,5 +53,16 @@ public class WebSocketController {
         return chatService.getLastMessage(chatroomSeq);
     }
 
+    // 공지사항 저장
+    @PostMapping("/api/announcement/{chatroomSeq}")
+    public void setAnnouncement(@PathVariable String chatroomSeq, @RequestBody String announcement) {
+        chatService.saveAnnouncement(chatroomSeq, announcement);
+    }
+
+    // 공지사항 조회
+    @GetMapping("/api/announcement/{chatroomSeq}")
+    public String getAnnouncement(@PathVariable String chatroomSeq) {
+        return chatService.getAnnouncement(chatroomSeq);
+    }
 }
 
