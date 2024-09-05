@@ -19,5 +19,5 @@ public class ChatMessageDto {
     private String datestamp;
     private String userProfile;
 
-
 }
+

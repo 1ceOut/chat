@@ -47,8 +47,11 @@ public class WebSocketController {
         return chatService.getMessages(chatroomSeq);
     }
 
+
     @GetMapping("/api/chatroom/{chatroomSeq}/last-message")
     public ChatMessageDto getLastMessage(@PathVariable String chatroomSeq) {
         return chatService.getLastMessage(chatroomSeq);
     }
+
 }
+
