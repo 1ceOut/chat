@@ -25,7 +25,8 @@ public class ChatService {
                 messageDto.getSenderSeq(),
                 messageDto.getTimestamp(),
                 messageDto.getDatestamp(),
-                messageDto.getUserProfile()
+                messageDto.getUserProfile(),
+                messageDto.getAnnouncement()
         );
     }
 
@@ -36,6 +37,8 @@ public class ChatService {
     private ObjectMapper objectMapper; // Jackson ObjectMapper
 
     private static final String CHAT_ROOM_PREFIX = "chatroom:";
+    private static final String ANNOUNCEMENT_PREFIX = "announcement:";
+
 
     public void saveMessage(String chatroomSeq, ChatMessageDto messageDto) {
         String key = CHAT_ROOM_PREFIX + chatroomSeq;
@@ -85,6 +88,18 @@ public class ChatService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    // 공지사항 저장
+    public void saveAnnouncement(String chatroomSeq, String announcement) {
+        String key = ANNOUNCEMENT_PREFIX + chatroomSeq;
+        redisTemplate.opsForValue().set(key, announcement);
+    }
+
+    // 공지사항 조회
+    public String getAnnouncement(String chatroomSeq) {
+        String key = ANNOUNCEMENT_PREFIX + chatroomSeq;
+        return redisTemplate.opsForValue().get(key);
     }
 
 }
