@@ -18,6 +18,7 @@ public class ChatMessageDto {
     private String timestamp;
     private String datestamp;
     private String userProfile;
+    private String announcement;
 
 }
 
