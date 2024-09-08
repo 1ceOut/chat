@@ -3,7 +3,6 @@ package com.example.chat.controller;
 import com.example.chat.dto.ChatMessageDto;
 import com.example.chat.service.ChatService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/api")
-//@RequiredArgsConstructor
 public class WebSocketController {
 
     @Autowired
@@ -34,9 +31,8 @@ public class WebSocketController {
 //        return message;
 //    }
 
-
     @MessageMapping("/message")
-    @SendTo("/topic/messages")
+    @SendTo("/topic/messages/{chatroomSeq}")
     public ChatMessageDto receiveMessage(ChatMessageDto messageDto) {
         chatService.saveMessage(String.valueOf(messageDto.getChatroomSeq()), messageDto);
         return messageDto;
@@ -46,7 +42,6 @@ public class WebSocketController {
     public List<ChatMessageDto> getMessages(@PathVariable String chatroomSeq) {
         return chatService.getMessages(chatroomSeq);
     }
-
 
     @GetMapping("/api/chatroom/{chatroomSeq}/last-message")
     public ChatMessageDto getLastMessage(@PathVariable String chatroomSeq) {
@@ -65,4 +60,3 @@ public class WebSocketController {
         return chatService.getAnnouncement(chatroomSeq);
     }
 }
-
