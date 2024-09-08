@@ -19,13 +19,17 @@ public class ChatService {
 
     public ChatMessageDto saveMessage(ChatMessageDto messageDto) {
         return new ChatMessageDto(
-                messageDto.getId(),
                 messageDto.getSender(),
                 messageDto.getMessage(),
                 messageDto.getChatroomSeq(),
-                messageDto.getSenderSeq()
+                messageDto.getSenderSeq(),
+                messageDto.getTimestamp(),
+                messageDto.getDatestamp(),
+                messageDto.getUserProfile(),
+                messageDto.getAnnouncement()
         );
     }
+
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
@@ -33,6 +37,7 @@ public class ChatService {
     private ObjectMapper objectMapper; // Jackson ObjectMapper
 
     private static final String CHAT_ROOM_PREFIX = "chatroom:";
+    private static final String ANNOUNCEMENT_PREFIX = "announcement:";
 
     public void saveMessage(String chatroomSeq, ChatMessageDto messageDto) {
         String key = CHAT_ROOM_PREFIX + chatroomSeq;
@@ -63,6 +68,37 @@ public class ChatService {
                 })
                 .filter(messageDto -> messageDto != null)
                 .collect(Collectors.toList());
+    }
+
+    // 채팅방의 마지막 메시지를 불러오는 메소드
+    public ChatMessageDto getLastMessage(String chatroomSeq) {
+        String key = CHAT_ROOM_PREFIX + chatroomSeq;
+        String lastMessageJson = redisTemplate.opsForList().index(key, -1);
+        System.out.println("last!!!!!"+lastMessageJson);
+
+        if (lastMessageJson == null) {
+            return null;
+        }
+
+        try {
+
+            return objectMapper.readValue(lastMessageJson, ChatMessageDto.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // 공지사항 저장
+    public void saveAnnouncement(String chatroomSeq, String announcement) {
+        String key = ANNOUNCEMENT_PREFIX + chatroomSeq;
+        redisTemplate.opsForValue().set(key, announcement);
+    }
+
+    // 공지사항 조회
+    public String getAnnouncement(String chatroomSeq) {
+        String key = ANNOUNCEMENT_PREFIX + chatroomSeq;
+        return redisTemplate.opsForValue().get(key);
     }
 
 }

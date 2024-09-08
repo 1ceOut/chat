@@ -31,9 +31,8 @@ public class WebSocketController {
 //        return message;
 //    }
 
-
     @MessageMapping("/message")
-    @SendTo("/topic/messages")
+    @SendTo("/topic/messages/{chatroomSeq}")
     public ChatMessageDto receiveMessage(ChatMessageDto messageDto) {
         chatService.saveMessage(String.valueOf(messageDto.getChatroomSeq()), messageDto);
         return messageDto;
@@ -42,5 +41,22 @@ public class WebSocketController {
     @GetMapping("/api/chatroom/{chatroomSeq}/messages")
     public List<ChatMessageDto> getMessages(@PathVariable String chatroomSeq) {
         return chatService.getMessages(chatroomSeq);
+    }
+
+    @GetMapping("/api/chatroom/{chatroomSeq}/last-message")
+    public ChatMessageDto getLastMessage(@PathVariable String chatroomSeq) {
+        return chatService.getLastMessage(chatroomSeq);
+    }
+
+    // 공지사항 저장
+    @PostMapping("/api/announcement/{chatroomSeq}")
+    public void setAnnouncement(@PathVariable String chatroomSeq, @RequestBody String announcement) {
+        chatService.saveAnnouncement(chatroomSeq, announcement);
+    }
+
+    // 공지사항 조회
+    @GetMapping("/api/announcement/{chatroomSeq}")
+    public String getAnnouncement(@PathVariable String chatroomSeq) {
+        return chatService.getAnnouncement(chatroomSeq);
     }
 }
