@@ -21,16 +21,7 @@ public class WebSocketController {
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
-
-//    // 메시지를 특정 채팅방으로 전송하고, 같은 채팅방을 구독하는 클라이언트에게 메시지를 전달합니다.
-//    @MessageMapping("/pub/message/{chatroomSeq}")
-//    @SendTo("/sub/chatroom/{chatroomSeq}")
-//    public ChatMessageDto sendMessage(@DestinationVariable String chatroomSeq, @Payload ChatMessageDto message) {
-//        System.out.println("받아오는 메세지 : "+message);
-//        chatService.saveMessage(chatroomSeq, message);
-//        return message;
-//    }
-
+    
     @MessageMapping("/message")
     @SendTo("/topic/messages/{chatroomSeq}")
     public ChatMessageDto receiveMessage(ChatMessageDto messageDto) {
