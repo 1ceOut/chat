@@ -25,8 +25,7 @@ public class ChatService {
                 messageDto.getSenderSeq(),
                 messageDto.getTimestamp(),
                 messageDto.getDatestamp(),
-                messageDto.getUserProfile(),
-                messageDto.getAnnouncement()
+                messageDto.getUserProfile()
         );
     }
 
