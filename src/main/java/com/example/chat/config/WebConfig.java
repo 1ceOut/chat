@@ -1,29 +1,8 @@
-<<<<<<< HEAD
-//package com.example.chat.config;
-//
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.web.servlet.config.annotation.CorsRegistry;
-//import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-//
-//
-//@Configuration
-//public class WebConfig implements WebMvcConfigurer {
-//
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")
-//                .allowedOrigins("http://localhost:8080")
-//                .allowedMethods("*")
-//                .allowedHeaders("*")
-//                .allowCredentials(true);
-//    }
-//}
-=======
-package com.example.chat.config;
+// package com.example.chat.config;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.web.servlet.config.annotation.CorsRegistry;
+// import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 // @Configuration
@@ -44,4 +23,3 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //                 .allowCredentials(true);
 //     }
 // }
->>>>>>> dd38870a851c0e8a6fa596ca32914fa0a404e306
