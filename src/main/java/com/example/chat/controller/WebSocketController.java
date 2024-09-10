@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static io.lettuce.core.pubsub.PubSubOutput.Type.message;
+
 @RestController
 public class WebSocketController {
 
@@ -31,9 +33,10 @@ public class WebSocketController {
 //        return message;
 //    }
 
-    @MessageMapping("/message")
+    @MessageMapping("/message/{chatroomSeq}")
     @SendTo("/topic/messages/{chatroomSeq}")
     public ChatMessageDto receiveMessage(ChatMessageDto messageDto) {
+        System.out.println("받아오는 메세지 : "+message);
         chatService.saveMessage(String.valueOf(messageDto.getChatroomSeq()), messageDto);
         return messageDto;
     }
@@ -51,12 +54,15 @@ public class WebSocketController {
     // 공지사항 저장
     @PostMapping("/api/announcement/{chatroomSeq}")
     public void setAnnouncement(@PathVariable String chatroomSeq, @RequestBody String announcement) {
+        System.out.println("Received chatroomSeq: " + chatroomSeq);
+        System.out.println("Received announcement: " + announcement);
         chatService.saveAnnouncement(chatroomSeq, announcement);
     }
 
     // 공지사항 조회
     @GetMapping("/api/announcement/{chatroomSeq}")
     public String getAnnouncement(@PathVariable String chatroomSeq) {
-        return chatService.getAnnouncement(chatroomSeq);
+        String announcement = chatService.getAnnouncement(chatroomSeq);
+        return announcement != null ? announcement : "";
     }
 }

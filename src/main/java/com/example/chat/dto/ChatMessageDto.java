@@ -18,10 +18,6 @@ public class ChatMessageDto {
     private String timestamp;
     private String datestamp;
     private String userProfile;
-    private String announcement;
 
-<<<<<<< HEAD
-=======
 }
->>>>>>> dd38870a851c0e8a6fa596ca32914fa0a404e306
 

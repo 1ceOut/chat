@@ -25,8 +25,7 @@ public class ChatService {
                 messageDto.getSenderSeq(),
                 messageDto.getTimestamp(),
                 messageDto.getDatestamp(),
-                messageDto.getUserProfile(),
-                messageDto.getAnnouncement()
+                messageDto.getUserProfile()
         );
     }
 
@@ -38,10 +37,6 @@ public class ChatService {
 
     private static final String CHAT_ROOM_PREFIX = "chatroom:";
     private static final String ANNOUNCEMENT_PREFIX = "announcement:";
-<<<<<<< HEAD
-=======
-
->>>>>>> dd38870a851c0e8a6fa596ca32914fa0a404e306
 
     public void saveMessage(String chatroomSeq, ChatMessageDto messageDto) {
         String key = CHAT_ROOM_PREFIX + chatroomSeq;
